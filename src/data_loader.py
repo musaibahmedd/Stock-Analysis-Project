@@ -3,13 +3,12 @@ import matplotlib.pyplot as plt
 
 stock = yf.Ticker("AAPL")
 data = stock.history(period="1y")
-
 data = data.dropna(subset=["Close"])
 
 data["Daily_Return"] = data["Close"].pct_change()
 data["Daily_Return_Percent"] = data["Daily_Return"] * 100
 
-data["MA_5"] = data["Close"].rolling(window=5).mean()    #.rolling(window=5)Take the prices in groups of 5 days, moving forward one day at a time.
+data["MA_5"] = data["Close"].rolling(window=5).mean()#.rolling(window=5)Take the prices in groups of 5 days, moving forward one day at a time.
 data["MA_20"] = data["Close"].rolling(window=20).mean()
 
 data["Signal"] = (data["MA_5"] > data["MA_20"]).astype(int)
